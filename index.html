@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f7f5ef">
+  <title>Noten- und Grifftrainer · C-Dur</title>
+  <style>
+    :root{--ink:#20352f;--muted:#65756f;--paper:#f7f5ef;--card:#fffefa;--line:#dce4dc;--green:#27775e;--green-soft:#e5f2eb;--orange:#dc815c;--red:#b65046;--shadow:0 12px 35px #18372b12}
+    *{box-sizing:border-box} body{margin:0;background:radial-gradient(ellipse at 10% 0%,#e8efe4 0,transparent 33rem),var(--paper);color:var(--ink);font:17px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif}
+    button{font:inherit;color:inherit;touch-action:manipulation} .wrap{width:min(1120px,100% - 32px);margin:auto;padding:22px 0 44px}
+    header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:24px}.brand{display:flex;align-items:center;gap:12px}.brand-mark{width:46px;height:46px;border-radius:16px;background:var(--green);color:white;display:grid;place-items:center;font-size:25px;box-shadow:0 6px 16px #27775e40}.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--green);font-weight:800}.brand h1{font-size:clamp(22px,4vw,31px);line-height:1.1;margin:2px 0 0}.badge{border:1px solid var(--line);background:#ffffffb8;padding:8px 13px;border-radius:999px;font-size:14px;color:var(--muted);white-space:nowrap}
+    .intro{display:grid;grid-template-columns:1.15fr .85fr;gap:20px;align-items:stretch;margin-bottom:20px}.intro-copy{padding:24px 26px;border-radius:24px;background:var(--green);color:white;position:relative;overflow:hidden;box-shadow:var(--shadow)}.intro-copy:after{content:"♪";position:absolute;right:10px;bottom:-65px;font-size:220px;line-height:1;color:#ffffff12;font-weight:700}.intro-copy h2{font-size:clamp(25px,4vw,38px);line-height:1.12;margin:8px 0 12px;max-width:620px;position:relative;z-index:1}.intro-copy p{max-width:570px;margin:0;color:#e4f0e9;position:relative;z-index:1}.intro-label{font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:#cee7d9}
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.step{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:17px 15px;box-shadow:var(--shadow)}.step-num{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;color:white;background:var(--orange);font-weight:800;font-size:14px;margin-bottom:10px}.step b{display:block;margin-bottom:4px}.step small{color:var(--muted);font-size:14px}
+    .panel{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:clamp(18px,3vw,28px);box-shadow:var(--shadow);margin-bottom:20px}.panel-head{display:flex;justify-content:space-between;align-items:start;gap:16px;margin-bottom:17px}.panel h3{font-size:21px;line-height:1.2;margin:0}.sub{color:var(--muted);margin:5px 0 0;font-size:15px}.presets{display:flex;gap:8px;flex-wrap:wrap}.small-btn,.mode-btn,.note-chip,.choice,.primary,.secondary{border:1px solid var(--line);border-radius:13px;background:white;cursor:pointer;transition:.15s ease}.small-btn{padding:9px 13px;font-size:14px;font-weight:700}.small-btn:hover,.mode-btn:hover,.choice:hover{border-color:var(--green);transform:translateY(-1px)}.small-btn.active,.note-chip.selected{background:var(--green-soft);border-color:#9dcab1;color:#17563f}.notes{display:flex;gap:9px;flex-wrap:wrap;margin:15px 0 18px}.note-chip{min-width:65px;min-height:60px;padding:8px 10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px}.note-chip strong{font-size:21px;line-height:1.1}.note-chip span{font-size:12px;color:var(--muted)}.note-chip[aria-pressed="true"]{box-shadow:inset 0 0 0 1px #9dcab1}
+    .start-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.primary{background:var(--green);color:white;border:0;font-weight:800;padding:13px 20px;min-height:50px;box-shadow:0 6px 14px #27775e32}.primary:hover{background:#1e624c}.secondary{padding:12px 16px;min-height:48px;font-weight:700}.hint{font-size:14px;color:var(--muted)}
+    .workbench{display:none}.workbench.show{display:block}.topline{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}.progress-wrap{flex:1;max-width:360px}.progress-meta{display:flex;justify-content:space-between;color:var(--muted);font-size:13px;margin-bottom:5px}.progress{height:9px;background:#e9eee8;border-radius:99px;overflow:hidden}.bar{height:100%;width:0;background:linear-gradient(90deg,#4ca47d,#27775e);border-radius:99px;transition:width .3s}.score{font-weight:800;background:#fff4e7;border:1px solid #f4dfc5;padding:8px 12px;border-radius:99px;white-space:nowrap}
+    .question{display:grid;grid-template-columns:1fr 1fr;gap:20px}.question-card{background:#fbfcf8;border:1px solid var(--line);border-radius:20px;padding:18px}.question-card h4{margin:0 0 12px;font-size:17px}.notation{width:100%;max-width:450px;display:block;margin:auto}.staffline{stroke:#63746b;stroke-width:1.4}.staff-aux{stroke:#9aa9a1;stroke-width:1.5}.notehead{fill:#20352f}.clef{font-family:serif;fill:#20352f}.answers{display:grid;grid-template-columns:repeat(4,minmax(60px,1fr));gap:9px;margin-top:13px}.choice{min-height:49px;padding:8px 6px;font-weight:800}.choice:disabled{cursor:default}.choice.correct{background:#e2f4e9;border-color:#6eb78d;color:#155b38}.choice.wrong{background:#fff0ed;border-color:#e39b91;color:#9a372e}.feedback{min-height:28px;margin:10px 0 0;font-weight:700;color:var(--muted)}.feedback.good{color:#1d724c}.feedback.bad{color:#ae453d}
+    .fingering-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}.grip-choice{border:1px solid var(--line);border-radius:16px;background:white;padding:10px;cursor:pointer;min-height:128px}.grip-choice:hover{border-color:var(--green)}.grip-choice:disabled{cursor:default}.grip-choice.correct{background:#e2f4e9;border-color:#6eb78d}.grip-choice.wrong{background:#fff0ed;border-color:#e39b91}.grip-choice .mini{display:block;margin:auto}.next-row{display:flex;justify-content:flex-end;margin-top:15px}.message-end{text-align:center;padding:30px 10px}.message-end .emoji{font-size:42px}.message-end h3{font-size:28px;margin:8px}.message-end p{color:var(--muted)}
+    .learn-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:11px}.learn-card{border:1px solid var(--line);background:#fbfcf8;border-radius:17px;padding:12px;text-align:center}.learn-card h4{font-size:20px;margin:2px 0}.learn-card svg{width:100%;max-width:170px;display:block;margin:0 auto}.learn-card .mini{margin:4px auto 0}.learn-caption{font-size:13px;color:var(--muted)}
+    .footer-note{color:var(--muted);font-size:13px;margin:10px 2px}.footer-note a{color:var(--green)}
+    @media(max-width:720px){.intro{grid-template-columns:1fr}.steps{grid-template-columns:repeat(3,1fr)}.step{padding:13px 10px}.question{grid-template-columns:1fr}.question-card{padding:15px}.panel-head{display:block}.presets{margin-top:12px}.wrap{width:min(100% - 20px,650px);padding-top:14px}.badge{font-size:12px;padding:7px 10px}.intro-copy{padding:21px}.learn-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:430px){.steps{gap:6px}.step{font-size:14px}.step small{font-size:12px}.note-chip{min-width:57px;min-height:56px}.answers{gap:7px}.choice{min-height:48px}.score{font-size:14px}.fingering-options{gap:7px}.grip-choice{min-height:120px;padding:7px}}
+  </style>
+</head>
+<body>
+<main class="wrap">
+  <header>
+    <div class="brand"><div class="brand-mark" aria-hidden="true">♫</div><div><div class="eyebrow">Musik · C-Dur</div><h1>Noten- und Grifftrainer</h1></div></div>
+    <div class="badge">Sopranblockflöte · deutsche Griffweise</div>
+  </header>
+  <section class="intro" aria-labelledby="intro-title">
+    <div class="intro-copy"><div class="intro-label">Hören · lesen · greifen</div><h2 id="intro-title">Erkenne die Note.<br>Finde den Griff.</h2><p>Sieh dir die Note im Violinschlüssel an, benenne sie und ordne den passenden Griff auf der Sopranblockflöte zu.</p></div>
+    <div class="steps" aria-label="So funktioniert die Übung"><div class="step"><div class="step-num">1</div><b>Noten auswählen</b><small>Übe nur die Töne, die du schon kennst.</small></div><div class="step"><div class="step-num">2</div><b>Note benennen</b><small>Lies die Note auf den Linien und Zwischenräumen.</small></div><div class="step"><div class="step-num">3</div><b>Griff zuordnen</b><small>Finde die passenden geschlossenen Löcher.</small></div></div>
+  </section>
+  <section class="panel" id="setup" aria-labelledby="setup-title">
+    <div class="panel-head"><div><h3 id="setup-title">Welche Töne möchtest du üben?</h3><p class="sub">Tippe auf die Töne, die in der Runde vorkommen sollen.</p></div><div class="presets"><button class="small-btn" id="basicSet">Grundtöne</button><button class="small-btn" id="allSet">Alle Töne</button></div></div>
+    <div class="notes" id="notePicker" role="group" aria-label="Zu übende Noten"></div>
+    <div class="start-row"><button class="primary" id="startQuiz">Übung starten&nbsp; →</button><button class="secondary" id="showCards">Lernkarten ansehen</button><span class="hint" id="selectionHint" aria-live="polite"></span></div>
+  </section>
+  <section class="panel workbench" id="cardsPanel" aria-labelledby="cardsTitle"><div class="panel-head"><div><h3 id="cardsTitle">Deine Lernkarten</h3><p class="sub">Note und passender Griff auf einen Blick.</p></div><button class="small-btn" id="closeCards">Schließen</button></div><div class="learn-grid" id="learnGrid"></div></section>
+  <section class="panel workbench" id="quizPanel" aria-labelledby="quizTitle">
+    <div class="topline"><div class="progress-wrap"><div class="progress-meta"><span id="roundLabel">Runde 1</span><span id="progressText">0 von 8</span></div><div class="progress"><div class="bar" id="progressBar"></div></div></div><div class="score" id="scoreLabel">⭐ 0 Punkte</div><button class="small-btn" id="quitQuiz">Beenden</button></div>
+    <div id="quizContent"></div>
+  </section>
+  <p class="footer-note">Die Sopranblockflöte wird in dieser App mit deutscher Griffweise dargestellt. Daumenloch = T, Vorderlöcher = 1 bis 7 (von oben nach unten). Ein dunkles Loch ist geschlossen, ein helles Loch ist offen.</p>
+</main>
+<script>
+(() => {
+  const notes = [
+    {id:'C',label:'C',staff:'C',holes:[1,2,3,4,5,6,7],thumb:'closed',hint:'Alle Löcher sind geschlossen.'},
+    {id:'D',label:'D',staff:'D',holes:[1,2,3,4,5,6],thumb:'closed',hint:'Das unterste Vorderloch bleibt offen.'},
+    {id:'E',label:'E',staff:'E',holes:[1,2,3,4,5],thumb:'closed',hint:'Die Löcher 1 bis 5 sind geschlossen.'},
+    {id:'F',label:'F',staff:'F',holes:[1,2,3,4],thumb:'closed',hint:'In deutscher Griffweise ist F ein einfacher Griff.'},
+    {id:'G',label:'G',staff:'G',holes:[1,2,3],thumb:'closed',hint:'Daumen und die Löcher 1 bis 3 sind geschlossen.'},
+    {id:'A',label:'A',staff:'A',holes:[1,2],thumb:'closed',hint:'Daumen und die Löcher 1 und 2 sind geschlossen.'},
+    {id:'H',label:'H',staff:'H',holes:[1],thumb:'closed',hint:'Nur Daumen und Loch 1 sind geschlossen.'},
+    {id:'c',label:'C′',staff:'c',holes:[2],thumb:'half',hint:'Für das hohe C wird das Daumenloch leicht geöffnet.'},
+    {id:'d',label:'D′',staff:'d',holes:[2],thumb:'open',hint:'Für das hohe D bleibt nur das zweite Vorderloch geschlossen.'}
+  ];
+  const selected = new Set(notes.map(n=>n.id));
+  const $ = id => document.getElementById(id);
+  const picker = $('notePicker');
+  function staffSvg(note, compact=false){
+    const w=compact?180:420, h=compact?100:205, mid=compact?49:103, gap=compact?11:22, x=compact?102:230;
+    const names=['E','G','H','D','F'];
+    const lines=names.map((n,i)=>{const y=mid+(2-i)*gap;return `<line class="staffline" x1="${compact?24:58}" y1="${y}" x2="${compact?157:362}" y2="${y}"/>`;}).join('');
+    const pos={C:mid+gap*3,D:mid+gap*2.5,E:mid+gap*2,F:mid+gap*1.5,G:mid+gap,A:mid+gap*.5,H:mid,c:mid-gap*.5,d:mid-gap};
+    const y=pos[note.staff];
+    const ledger=note.staff==='C'?`<line class="staff-aux" x1="${x-15}" y1="${y}" x2="${x+15}" y2="${y}"/>`:'';
+    return `<svg class="notation" viewBox="0 0 ${w} ${h}" role="img" aria-label="Note im Violinschlüssel"><g>${lines}${ledger}</g><text class="clef" x="${compact?5:14}" y="${mid+gap*2.9}" font-size="${compact?65:122}">𝄞</text><ellipse class="notehead" cx="${x}" cy="${y}" rx="${compact?8:12}" ry="${compact?5.7:8.5}" transform="rotate(-18 ${x} ${y})"/><path d="M ${x+10} ${y-1} L ${x+10} ${y-68}" stroke="#20352f" stroke-width="${compact?2:3}"/></svg>`;
+  }
+  function fingeringSvg(note, mini=false){
+    const w=mini?118:190,h=mini?102:150,cx=w/2,top=mini?20:24,step=mini?10:14,r=mini?4.1:6.1;
+    let holes=`<rect x="${cx-(mini?20:27)}" y="${top-8}" width="${mini?40:54}" height="${mini?82:112}" rx="${mini?19:25}" fill="#f1dfc4" stroke="#c9ad87" stroke-width="2"/>`;
+    // Rear thumb is shown above the front holes. Half open is a split symbol.
+    if(note.thumb==='open') holes+=`<circle cx="${cx}" cy="${top-1}" r="${r+1}" fill="#fffefa" stroke="#756756" stroke-width="1.6"/>`;
+    else if(note.thumb==='half'){
+      holes+=`<circle cx="${cx}" cy="${top-1}" r="${r+1}" fill="#fffefa" stroke="#756756" stroke-width="1.6"/><path d="M ${cx} ${top-r-1} A ${r+1} ${r+1} 0 0 0 ${cx} ${top+r+1} L ${cx} ${top-r-1}" fill="#31443a"/>`;
+    } else holes+=`<circle cx="${cx}" cy="${top-1}" r="${r+1}" fill="#31443a" stroke="#756756" stroke-width="1.2"/>`;
+    for(let i=1;i<=7;i++){
+      const y=top+15+(i-1)*step, closed=note.holes.includes(i), xx=cx+(i===7?(mini?6:8):0);
+      holes+=`<circle cx="${xx}" cy="${y}" r="${r}" fill="${closed?'#31443a':'#fffefa'}" stroke="#756756" stroke-width="1.5"/>`;
+      if(!mini) holes+=`<text x="${cx+43}" y="${y+4}" font-size="11" fill="#819087">${i}</text>`;
+    }
+    if(!mini) holes+=`<text x="${cx}" y="${h-4}" text-anchor="middle" font-size="11" fill="#68776e">Daumen · T</text>`;
+    return `<svg class="mini" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" role="img" aria-label="Griffbild mit geschlossenen und offenen Löchern">${holes}</svg>`;
+  }
+  function drawPicker(){picker.innerHTML=''; notes.forEach(n=>{const b=document.createElement('button');b.className='note-chip'+(selected.has(n.id)?' selected':'');b.setAttribute('aria-pressed',selected.has(n.id));b.innerHTML=`<strong>${n.label}</strong><span>${n.id==='c'?'hohes C':n.id==='d'?'hohes D':'C-Dur'}</span>`;b.onclick=()=>{selected.has(n.id)?selected.delete(n.id):selected.add(n.id);drawPicker();};picker.append(b);});$('selectionHint').textContent=`${selected.size} ${selected.size===1?'Ton':'Töne'} ausgewählt.`;}
+  drawPicker();
+  $('basicSet').onclick=()=>{selected.clear();['C','D','E','F','G'].forEach(x=>selected.add(x));drawPicker();};
+  $('allSet').onclick=()=>{notes.forEach(n=>selected.add(n.id));drawPicker();};
+  let round=0,rounds=[],score=0,step='note',locked=false;
+  function shuffled(a){return [...a].sort(()=>Math.random()-.5)}
+  function makeRounds(){const pool=notes.filter(n=>selected.has(n.id));if(pool.length<2){$('selectionHint').textContent='Bitte wähle mindestens zwei Töne aus.';return false;} rounds=shuffled(pool).slice(0,Math.min(8,pool.length));round=0;score=0;step='note';locked=false;return true;}
+  function updateTop(){ $('roundLabel').textContent=`Runde ${Math.min(round+1,rounds.length)} von ${rounds.length}`;$('progressText').textContent=`${round} von ${rounds.length}`;$('progressBar').style.width=`${round/rounds.length*100}%`;$('scoreLabel').textContent=`⭐ ${score} ${score===1?'Punkt':'Punkte'}`; }
+  function answerNames(note){const wrong=shuffled(notes.filter(n=>n.id!==note.id)).slice(0,3);return shuffled([note,...wrong]);}
+  function answerGrips(note){const wrong=shuffled(notes.filter(n=>n.id!==note.id)).slice(0,3);return shuffled([note,...wrong]);}
+  function renderRound(){
+    updateTop();const n=rounds[round];if(!n){showEnd();return;}
+    step='note';locked=false;
+    $('quizContent').innerHTML=`<h3 id="quizTitle">Welche Note siehst du?</h3><div class="question"><div class="question-card"><h4>1 · Lies die Note im Violinschlüssel</h4>${staffSvg(n)}<div class="answers" id="nameChoices"></div><p class="feedback" id="nameFeedback" aria-live="polite">Tippe auf den richtigen Notennamen.</p></div><div class="question-card" id="gripCard"><h4>2 · Welcher Griff passt dazu?</h4><p class="sub">Benenne zuerst die Note. Dann wählst du den Griff.</p><div class="fingering-options" id="gripChoices" aria-live="polite"></div><p class="feedback" id="gripFeedback"></p></div></div><div class="next-row"><button class="primary" id="nextQuestion" hidden>Weiter&nbsp; →</button></div>`;
+    const opts=answerNames(n);const box=$('nameChoices');opts.forEach(o=>{const b=document.createElement('button');b.className='choice';b.textContent=o.label;b.onclick=()=>checkName(b,o,n);box.append(b);});
+  }
+  function checkName(btn,choice,n){if(locked)return;locked=true;const fb=$('nameFeedback');document.querySelectorAll('#nameChoices .choice').forEach(b=>{b.disabled=true;if(b.textContent===n.label)b.classList.add('correct');});if(choice.id===n.id){score++;fb.className='feedback good';fb.textContent=`Richtig! Die Note heißt ${n.label}. Jetzt suche den passenden Griff.`;showGripOptions(n);}else{btn.classList.add('wrong');fb.className='feedback bad';fb.textContent=`Das war ${choice.label}. Die richtige Note ist ${n.label}. Schau dir jetzt den passenden Griff an.`;showGripOptions(n);}updateTop();}
+  function showGripOptions(n){step='grip';const box=$('gripChoices');box.innerHTML='';$('gripCard').querySelector('.sub').textContent='Welche Abbildung zeigt den passenden Griff?';answerGrips(n).forEach(o=>{const b=document.createElement('button');b.className='grip-choice';b.dataset.noteId=o.id;b.setAttribute('aria-label','Griffbild auswählen');b.innerHTML=fingeringSvg(o,true);b.onclick=()=>checkGrip(b,o,n);box.append(b);});}
+  function checkGrip(btn,choice,n){if(step!=='grip'||$('nextQuestion').hidden===false)return;document.querySelectorAll('.grip-choice').forEach(b=>{b.disabled=true;if(b.dataset.noteId===n.id)b.classList.add('correct');});const fb=$('gripFeedback');if(choice.id===n.id){score++;fb.className='feedback good';fb.textContent=`Genau! ${n.hint}`;}else{btn.classList.add('wrong');fb.className='feedback bad';fb.textContent=`Noch nicht. ${n.hint}`;}updateTop();$('nextQuestion').hidden=false;$('nextQuestion').onclick=()=>{round++;if(round>=rounds.length)showEnd();else renderRound();};}
+  function showEnd(){updateTop();$('progressText').textContent=`${rounds.length} von ${rounds.length}`;$('progressBar').style.width='100%';$('quizContent').innerHTML=`<div class="message-end"><div class="emoji">${score>=rounds.length*1.5?'🎉':'🎵'}</div><h3>Runde geschafft!</h3><p>Du hast <strong>${score} von ${rounds.length*2} Punkten</strong> gesammelt.</p><button class="primary" id="again">Noch einmal üben</button>&nbsp; <button class="secondary" id="backSetup">Töne ändern</button></div>`;$('again').onclick=()=>{if(makeRounds()){renderRound();}};$('backSetup').onclick=()=>{hidePanels();$('setup').scrollIntoView({behavior:'smooth'});};}
+  function drawLearningCards(){const grid=$('learnGrid');grid.innerHTML='';notes.filter(n=>selected.has(n.id)).forEach(n=>{const card=document.createElement('div');card.className='learn-card';card.innerHTML=`${staffSvg(n,true)}<h4>${n.label}</h4><div class="learn-caption">${n.id==='c'?'hohes C':n.id==='d'?'hohes D':'C-Dur'}</div>${fingeringSvg(n,true)}`;grid.append(card);});}
+  function hidePanels(){$('cardsPanel').classList.remove('show');$('quizPanel').classList.remove('show');}
+  $('startQuiz').onclick=()=>{hidePanels();if(!makeRounds())return;$('quizPanel').classList.add('show');renderRound();$('quizPanel').scrollIntoView({behavior:'smooth',block:'start'});};
+  $('showCards').onclick=()=>{if(selected.size<1){$('selectionHint').textContent='Bitte wähle mindestens einen Ton aus.';return;}hidePanels();drawLearningCards();$('cardsPanel').classList.add('show');$('cardsPanel').scrollIntoView({behavior:'smooth',block:'start'});};
+  $('closeCards').onclick=()=>hidePanels();
+  $('quitQuiz').onclick=()=>{hidePanels();$('setup').scrollIntoView({behavior:'smooth'});};
+})();
+</script>
+</body>
+</html>
